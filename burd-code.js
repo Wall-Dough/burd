@@ -13,7 +13,7 @@ var framerate = 60;
 var spriteImgs = [];
 var sprites = [];
 
-function brightness(percent) {
+function changeBrightness(percent) {
     for (var i = 0; i < 3; i++) {
         var d = sprites[i].data;
         for (var j = 0; j < d.length; j += 4) {
@@ -42,7 +42,7 @@ function changeColor(brightness) {
     if ((brightness > 100) || (brightness < 0)) {
         return;
     }
-    brightness(brightness);
+    changeBrightness(brightness);
 }
 
 function draw_bird(bird) {
