@@ -15,7 +15,7 @@ var sprites = [];
 
 function changeBrightness(percent) {
     for (var i = 0; i < 3; i++) {
-        var d = sprites[i];
+        var d = sprites[i].data;
         for (var j = 0; j < d.length; j += 4) {
             d[j] = d[j] * percent / 100;
             d[j + 1] = d[j + 1] * percent / 100;
