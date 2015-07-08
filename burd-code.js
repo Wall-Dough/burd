@@ -43,9 +43,6 @@ function changeColor(brightness) {
     if ((brightness > 100) || (brightness < 0)) {
         return;
     }
-    for (var i = 0; i < sprites.length; i++) {
-        sprites[i].setAttribute("style", "filter: brightness(" + brightness.toString() + "%); -webkit-filter: brightness(" + brightness.toString() + "%); -moz-filter: brightness(" + brightness.toString() + "%); -ms-filter: brightness(" + brightness.toString() + "%); -o-filter: brightness(" + brightness.toString() + "%);");
-    }
 }
 
 function draw_bird(bird) {
