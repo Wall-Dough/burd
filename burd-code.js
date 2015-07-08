@@ -10,22 +10,21 @@ var wings_interval = null;
 var max_yv = 1600;
 var min_yv = -1600;
 var framerate = 60;
+var spriteImgs = [];
 var sprites = [];
 
-var brightness = function(delta) {
-  return function (pixels, args) {
-    var d = pixels.data;
-    for (var i = 0; i < d.length; i += 4) {
-      d[i] += delta;     // red
-      d[i + 1] += delta; // green
-      d[i + 2] += delta; // blue
+function brightness(percent) {
+    for (var i = 0; i < 3; i++) {
+        var d = sprites[i].data;
+        for (var j = 0; j < d.length; j += 4) {
+            d[i] = d[i] * percent / 100;
+            d[i + 1] = d[i + 1] * percent / 100;
+            d[i + 2] = d[i + 2] * percent / 100;
+        }
     }
-    return pixels;
-  };
-};
+}
 
-function loadSprites() {
-    var spriteImgs = [];
+function resetSprites() {
     spriteImgs[0] = document.getElementById("burd-sprite-1");
     spriteImgs[1] = document.getElementById("burd-sprite-2");
     spriteImgs[2] = document.getElementById("burd-sprite-3");
@@ -43,16 +42,17 @@ function changeColor(brightness) {
     if ((brightness > 100) || (brightness < 0)) {
         return;
     }
+    brightness(brightness);
 }
 
 function draw_bird(bird) {
 	var burd_sprite;
 	if (key_space) {
-		burd_sprite = document.getElementById("burd-sprite-2");
+		burd_sprite = 1;
 	} else if (wings_down) {
-		burd_sprite = document.getElementById("burd-sprite-3");
+		burd_sprite = 2;
 	} else {
-		burd_sprite = document.getElementById("burd-sprite-1");
+		burd_sprite = 0;
 	}
 	var c = document.getElementById("canvas");
 	if (bird.x > c.width) {
@@ -85,7 +85,7 @@ function draw_bird(bird) {
 	ctx.translate(bird.x, bird.y);
 	ctx.rotate(angle);
 	ctx.translate(-bird.x, -bird.y);
-	ctx.drawImage(burd_sprite, bird.x - burd_sprite.width, bird.y - burd_sprite.height);
+	ctx.putImageData(sprites[burd_sprite], bird.x - spriteImgs[burd_sprite].width, bird.y - spriteImgs[burd_sprite].height);
 	ctx.restore();
 }
 
@@ -110,7 +110,7 @@ function update_bird(bird) {
 
 
 function start_game() {
-    loadSprites();
+    resetSprites();
     changeColor(50);
 	bird1 = new Object();
 	bird1.x = 10;
