@@ -15,11 +15,11 @@ var sprites = [];
 
 function changeBrightness(percent) {
     for (var i = 0; i < 3; i++) {
-        var d = sprites[i].data;
+        var d = sprites[i];
         for (var j = 0; j < d.length; j += 4) {
-            d[i] = d[i] * percent / 100;
-            d[i + 1] = d[i + 1] * percent / 100;
-            d[i + 2] = d[i + 2] * percent / 100;
+            d[j] = d[j] * percent / 100;
+            d[j + 1] = d[j + 1] * percent / 100;
+            d[j + 2] = d[j + 2] * percent / 100;
         }
     }
 }
